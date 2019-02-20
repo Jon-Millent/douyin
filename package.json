@@ -4,11 +4,18 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "reload": "adb shell input keyevent 82",
+    "dev:android": "react-native run-android",
+    "build:android": "cd android && gradlew assembleRelease"
   },
   "dependencies": {
     "react": "16.6.3",
-    "react-native": "0.58.5"
+    "react-native": "0.58.5",
+    "react-native-gesture-handler": "^1.0.15",
+    "react-native-parallax-swiper": "^1.1.7",
+    "react-native-router-flux": "^4.0.6",
+    "react-navigation": "^3.3.0"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
