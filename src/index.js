@@ -39,7 +39,7 @@ import {
 
 
 const DetailScreen = () => (
-  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#137'}}>
     <Text>Detail Screen</Text>
   </View>
 );

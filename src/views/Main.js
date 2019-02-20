@@ -98,9 +98,8 @@ export default class App extends Component<Props> {
 
 const MainPage = StyleSheet.create({
   wrap: {
-    backgroundColor: '#333',
-    width: deviceWidth,
-    height: deviceHeight
+    backgroundColor: '#384',
+    flex: 1
   },
   backgroundBox: {
     width: deviceWidth,
