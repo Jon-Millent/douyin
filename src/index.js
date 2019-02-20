@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 /*
 import { Router, Scene } from 'react-native-router-flux';//引入包
 
-import MainScreen from './views/Main';
 
 const App = () => {
   return (
@@ -22,12 +21,17 @@ const App = () => {
 }
 
 export default App;
-
 */
 
 
+import {
+  View,
+  Text
+} from 'react-native'
 
-import {StackNavigator} from 'react-navigation';
+import MainScreen from './views/Main';
+
+import {createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
 const HomeScreen = () => (
   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
     <Text>Home Screen</Text>
@@ -40,13 +44,9 @@ const DetailScreen = () => (
   </View>
 );
 
-const RootNavigator = StackNavigator({
-  Home: {
-    screen: HomeScreen
-  },
-  Detail: {
-    screen: DetailScreen
-  }
+const TabNavigator = createBottomTabNavigator({
+  Home: MainScreen,
+  Detail: DetailScreen,
 });
 
-export default RootNavigator;
+export default createAppContainer(TabNavigator);
