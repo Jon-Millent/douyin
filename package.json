@@ -7,14 +7,17 @@
     "test": "jest",
     "reload": "adb shell input keyevent 82",
     "dev:android": "react-native run-android",
-    "build:android": "cd android && gradlew assembleRelease"
+    "build:android": "cd android && gradlew assembleRelease",
+    "build:iconfont": "iconfonttojson ./src/static/font/iconfont/iconfont.css"
   },
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.5",
+    "react-native-extra-dimensions-android": "^1.0.1",
     "react-native-gesture-handler": "^1.0.15",
     "react-native-parallax-swiper": "^1.1.7",
     "react-native-router-flux": "^4.0.6",
+    "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.3.0"
   },
   "devDependencies": {

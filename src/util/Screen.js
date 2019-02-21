@@ -16,8 +16,12 @@
 import {
   Dimensions,
   PixelRatio,
+  NativeModules
 } from 'react-native';
 
+const { StatusBarManager } = NativeModules;
+
+export const STATUSBAR_HEIGHT = StatusBarManager.HEIGHT;
 
 export const deviceWidth = Dimensions.get('window').width;      //设备的宽度
 export const deviceHeight = Dimensions.get('window').height;    //设备的高度

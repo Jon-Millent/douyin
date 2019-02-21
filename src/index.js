@@ -27,29 +27,70 @@ export default App;
 import {
   View,
   Text,
+  Image
 } from 'react-native'
 
 import MainScreen from './views/Main';
 
 import {
-  createStackNavigator,
   createAppContainer,
   createBottomTabNavigator,
 } from 'react-navigation';
+import {borderWidth, deviceHeight, deviceWidth, getPx} from "./util/Screen";
 
 
 const DetailScreen = () => (
   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#137'}}>
-    <Text>Detail Screen</Text>
+    <View style={{
+      width: deviceWidth,
+      height: deviceHeight,
+      backgroundColor: '#E00'
+    }}></View>
   </View>
 );
 
 const tabOptions = {
   Main: {
-    screen: MainScreen
+    screen: MainScreen,
+    navigationOptions: {
+      tabBarLabel: '首页'
+    }
   },
-  Checkout: {
-    screen: DetailScreen
+  Friend: {
+    screen: DetailScreen,
+    navigationOptions: {
+      tabBarLabel: '好友'
+    }
+  },
+  Append: {
+    screen: DetailScreen,
+    navigationOptions: {
+      tabBarLabel: ' ',
+      tabBarIcon: ()=>{
+        return (
+          <Image
+            source={require('./static/icon/add.png')}
+            style={{
+              width: getPx(79),
+              height: getPx(52),
+              marginTop: getPx(96)
+            }}
+          />
+        )
+      }
+    }
+  },
+  Message: {
+    screen: DetailScreen,
+    navigationOptions: {
+      tabBarLabel: '消息'
+    }
+  },
+  My: {
+    screen: DetailScreen,
+    navigationOptions: {
+      tabBarLabel: '我'
+    }
   }
 };
 
@@ -60,8 +101,8 @@ const TabbedNavigation = createBottomTabNavigator(tabOptions, {
   lazyLoad: true,
   tabBarOptions: {
     tinColor: '#fff',
-    activeTintColor: '#eee',
-    inactiveTintColor: '#fff',
+    inactiveTintColor: '#b1b1b1',
+    activeTintColor: '#fff',
     showIcon: true,
     showLabel: true,
     lazyLoad: true,
@@ -70,14 +111,21 @@ const TabbedNavigation = createBottomTabNavigator(tabOptions, {
       backgroundColor: 'transparent'
     },
     style: {
-      backgroundColor: 'rgba(22, 22, 22, 0.3)',
-      borderTopWidth: 3,
-      borderTopColor: '#996600',
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
       position: 'absolute',
       left: 0,
       right: 0,
-      bottom: 0
-    }
+      bottom: 0,
+      height: getPx(88),
+      lineHeight: getPx(88),
+      borderTopWidth: borderWidth,
+      borderColor: 'rgba(255, 255, 255, .6)'
+    },
+    labelStyle: {
+      lineHeight: getPx(88),
+      fontSize: getPx(30)
+    },
+
   }
 });
 

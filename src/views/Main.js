@@ -4,15 +4,17 @@ import {
   Text,
   View,
   StyleSheet,
-  StatusBar
+  StatusBar,
 } from "react-native";
-
 import {
   ParallaxSwiper,
   ParallaxSwiperPage
 } from "react-native-parallax-swiper";
 
-import {getPx, deviceWidth, deviceHeight} from "../util/Screen";
+import ExtraDimensions from 'react-native-extra-dimensions-android';
+import {getPx, deviceWidth} from "../util/Screen";
+
+import { Iconfont } from "../static/font/iconfont";
 
 
 export default class App extends Component<Props> {
@@ -50,6 +52,7 @@ export default class App extends Component<Props> {
             ForegroundComponent={
               <View>
                 <Text>Page 1</Text>
+                <Iconfont name="icon-bqxin" size={60}></Iconfont>
               </View>
             }
           />
@@ -103,7 +106,7 @@ const MainPage = StyleSheet.create({
   },
   backgroundBox: {
     width: deviceWidth,
-    height: deviceHeight
+    height: ExtraDimensions.get('REAL_WINDOW_HEIGHT') + ExtraDimensions.get('STATUS_BAR_HEIGHT')
   }
 })
 
