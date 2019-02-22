@@ -23,6 +23,12 @@ export default class App extends Component<Props> {
   constructor(props) {
     super(props);
     this.myCustomAnimatedValue = new Animated.Value(0);
+
+    this.playerList = [] // 播放器存储列表
+    this.state = {
+      feedList: [], // 请求获取到的播放列表
+    }
+
   }
 
 
@@ -134,9 +140,7 @@ export default class App extends Component<Props> {
                   <View style={DouYinStyle.player}>
                     <View style={DouYinStyle.playerCover}></View>
                   </View>
-
                 </View>
-
                 <View style={DouYinStyle.videoBox}>
                   <Video source={{uri: "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0300f880000bgqsm2ge8b7s5rkne4ig"}}   // Can be a URL or a local file.
                          ref={(ref) => {
@@ -193,7 +197,6 @@ const Values = {
   STATUS_BAR_HEIGHT: ExtraDimensions.get('STATUS_BAR_HEIGHT'),
   REAL_WINDOW_HEIGHT: ExtraDimensions.get('REAL_WINDOW_HEIGHT'),
   SOFT_MENU_BAR_HEIGHT: ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT'),
-
 }
 
 
@@ -202,7 +205,6 @@ const $Tool = {
     return getPx(Math.min(Values.SOFT_MENU_BAR_HEIGHT, 48))
   }
 }
-
 const MainPage = StyleSheet.create({
   wrap: {
     backgroundColor: '#000',
@@ -269,7 +271,6 @@ const MainPage = StyleSheet.create({
     top: getPx(-6)
   }
 })
-
 const DouYinStyle = StyleSheet.create({
   wrap: {
     flex: 1,
