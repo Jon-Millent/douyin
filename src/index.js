@@ -71,8 +71,8 @@ const tabOptions = {
           <Image
             source={require('./static/icon/add.png')}
             style={{
-              width: getPx(79),
-              height: getPx(52),
+              width: getPx(80),
+              height: getPx(53),
               marginTop: getPx(96)
             }}
           />
