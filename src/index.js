@@ -1,32 +1,8 @@
 import React, { Component } from 'react';
 
-/*
-import { Router, Scene } from 'react-native-router-flux';//引入包
-
-
-const App = () => {
-  return (
-    <Router>
-      <Scene key="root">
-        <Scene
-               key="main"
-               component={MainScreen}
-               title="main"
-               hideNavBar={true}
-               initial
-        />
-      </Scene>
-    </Router>
-  );
-}
-
-export default App;
-*/
-
 
 import {
   View,
-  Text,
   Image
 } from 'react-native'
 
@@ -49,6 +25,8 @@ const DetailScreen = () => (
   </View>
 );
 
+
+// 底部tab配置
 const tabOptions = {
   Main: {
     screen: MainScreen,
@@ -94,6 +72,7 @@ const tabOptions = {
   }
 };
 
+// 创建底部tab
 const TabbedNavigation = createBottomTabNavigator(tabOptions, {
   initialRouteName: 'Main',
   animationEnabled: false,

@@ -201,10 +201,13 @@ const Values = {
 
 
 const $Tool = {
+  // 获取理想底部的高度
   getIWantMenuBarHeight(){
     return getPx(Math.min(Values.SOFT_MENU_BAR_HEIGHT, 48))
   }
 }
+
+// 主页面样式
 const MainPage = StyleSheet.create({
   wrap: {
     backgroundColor: '#000',
@@ -271,6 +274,8 @@ const MainPage = StyleSheet.create({
     top: getPx(-6)
   }
 })
+
+// 视频样式
 const DouYinStyle = StyleSheet.create({
   wrap: {
     flex: 1,
