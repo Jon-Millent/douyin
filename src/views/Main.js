@@ -24,11 +24,45 @@ export default class App extends Component<Props> {
     super(props);
     this.myCustomAnimatedValue = new Animated.Value(0);
 
+    this.config = {
+      feedUrl: 'https://gitee.com/millent/json/raw/master/douyin/like.json'
+    }
+
     this.playerList = [] // 播放器存储列表
     this.state = {
       feedList: [], // 请求获取到的播放列表
     }
 
+  }
+
+  getTokTikFeed(){
+    return new Promise((resolve)=>{
+      fetch(this.config.feedUrl, {
+        method: 'GET',
+      }).then((response) => response.json())
+        .then((responseJson) => {
+        resolve({
+          code: 200,
+          body: responseJson
+        })
+      })
+      .catch((error) => {
+        resolve({
+          code: 500,
+          body: null,
+          err: error
+        })
+      });
+    })
+  }
+
+  async initMainPage(){
+    let data = await this.getTokTikFeed()
+    console.log(data)
+  }
+
+  componentDidMount(){
+    this.initMainPage()
   }
 
 
