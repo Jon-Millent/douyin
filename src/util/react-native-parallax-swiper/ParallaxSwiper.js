@@ -25,7 +25,7 @@ class ParallaxSwiper extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.scrollToIndex(nextProps.scrollToIndex);
+    // this.scrollToIndex(nextProps.scrollToIndex);
   }
 
   onScrollEnd(e) {
