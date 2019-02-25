@@ -7,24 +7,13 @@ import {
 } from 'react-native'
 
 import MainScreen from './views/Main';
+import FriendScreen from './views/Friend';
 
 import {
   createAppContainer,
   createBottomTabNavigator,
 } from 'react-navigation';
 import {borderWidth, deviceHeight, deviceWidth, getPx} from "./util/Screen";
-
-
-const DetailScreen = () => (
-  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#137'}}>
-    <View style={{
-      width: deviceWidth,
-      height: deviceHeight,
-      backgroundColor: '#E00'
-    }}></View>
-  </View>
-);
-
 
 // 底部tab配置
 const tabOptions = {
@@ -35,13 +24,13 @@ const tabOptions = {
     }
   },
   Friend: {
-    screen: DetailScreen,
+    screen: FriendScreen,
     navigationOptions: {
       tabBarLabel: '好友'
     }
   },
   Append: {
-    screen: DetailScreen,
+    screen: FriendScreen,
     navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: ()=>{
@@ -59,13 +48,13 @@ const tabOptions = {
     }
   },
   Message: {
-    screen: DetailScreen,
+    screen: FriendScreen,
     navigationOptions: {
       tabBarLabel: '消息'
     }
   },
   My: {
-    screen: DetailScreen,
+    screen: FriendScreen,
     navigationOptions: {
       tabBarLabel: '我'
     }

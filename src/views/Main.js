@@ -11,7 +11,7 @@ import {
 import EZSwiper from 'react-native-ezswiper';
 
 import ExtraDimensions from 'react-native-extra-dimensions-android';
-import {getPx, deviceWidth, borderWidth} from "../util/Screen";
+import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
 import Video from 'react-native-video';
 import { Iconfont } from "../static/font/iconfont";
 
@@ -35,6 +35,12 @@ export default class App extends Component<Props> {
 
 
 
+  }
+
+
+  getRandomColor(){
+    let num = Math.min(Math.floor(Math.random()*10), 5)
+    return ['#000', '#222', '#333', '#444', '#555', '#666', '#777', '#888'][num]
   }
 
   getTokTikFeed(){
@@ -106,12 +112,7 @@ export default class App extends Component<Props> {
   renderSwiper(item, index){
 
     return (
-      <View style={{
-          width: deviceWidth,
-          height: Values.REAL_WINDOW_HEIGHT,
-          backgroundColor: '#333',
-          key: {index}
-        }}>
+      <View style={{width: deviceWidth, height: $Tool.getRawHeight(), key: {index}}}>
         <View style={DouYinStyle.innerWrap}>
           <View style={DouYinStyle.descriptionBox}>
             <Text style={DouYinStyle.userName}>
@@ -259,7 +260,7 @@ export default class App extends Component<Props> {
             return this.renderSwiper(item, index)
           }}
           width={ deviceWidth }
-          height={ Values.REAL_WINDOW_HEIGHT - Values.SOFT_MENU_BAR_HEIGHT }
+          height={ $Tool.getRawHeight() }
           horizontal={false}
           loop={false}
           onDidChange={(item, index)=>{
@@ -280,11 +281,15 @@ const Values = {
   SOFT_MENU_BAR_HEIGHT: ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT'),
 }
 
+console.log(Values)
 
 const $Tool = {
   // 获取理想底部的高度
   getIWantMenuBarHeight(){
     return getPx(Math.min(Values.SOFT_MENU_BAR_HEIGHT, 48))
+  },
+  getRawHeight(){
+    return Values.STATUS_BAR_HEIGHT + Values.REAL_WINDOW_HEIGHT
   }
 }
 
@@ -368,9 +373,9 @@ const DouYinStyle = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#ccc'
+    width: deviceWidth,
+    height: $Tool.getRawHeight(),
+    backgroundColor: '#000'
   },
   rightMenu: {
     position: 'absolute',
