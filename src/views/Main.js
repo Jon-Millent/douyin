@@ -5,10 +5,10 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  Image
+  Image,
 } from "react-native";
 
-import EZSwiper from 'react-native-ezswiper';
+import EZSwiper from '../util/EZSwiper';
 
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
@@ -37,11 +37,6 @@ export default class App extends Component<Props> {
 
   }
 
-
-  getRandomColor(){
-    let num = Math.min(Math.floor(Math.random()*10), 5)
-    return ['#000', '#222', '#333', '#444', '#555', '#666', '#777', '#888'][num]
-  }
 
   getTokTikFeed(){
     return new Promise((resolve)=>{
@@ -73,11 +68,13 @@ export default class App extends Component<Props> {
 
       let arr = []
 
-      aweme_list.forEach(val=>{
+      aweme_list.forEach((val, index)=>{
 
+        val.index = index
         arr.push({
           videoObject: null,
-          canPlay: false
+          canPlay: false,
+          fadeAnim: new Animated.Value(1)
         })
 
       })
@@ -98,8 +95,11 @@ export default class App extends Component<Props> {
 
   scrollChange(item, index){
 
+    console.log(index, '<-=--------------------<<<')
+
     this.state.playerList.forEach(val=>{
       val.canPlay = false
+      val.fadeAnim = new Animated.Value(1)
     })
     this.setState({
       playerList: [...this.state.playerList],
@@ -182,30 +182,41 @@ export default class App extends Component<Props> {
             {
               this.state.swiperIndex === index ? (
                 <Video source={{uri: item.video.play_addr.url_list[0]}}   // Can be a URL or a local file.
-                       ref={(ref) => {
-                         // set ref object
+                   ref={(ref) => {
+                     // set ref object
 
-                         if(!this.state.playerList[index].videoObject) {
-                           this.state.playerList[index].videoObject = ref
-                           this.setState({
-                             playerList: [...this.state.playerList]
-                           })
-                         }
+                     if(!this.state.playerList[index].videoObject) {
+                       this.state.playerList[index].videoObject = ref
+                       this.setState({
+                         playerList: [...this.state.playerList]
+                       })
+                     }
 
 
-                       }}                                      // Store reference
-                       repeat={true}
-                       resizeMode={'cover'}
-                       autoplay={false}
-                       onBuffer={() => {
-                         // ready to play
-                         this.state.playerList[index].canPlay = true
+                   }}                                      // Store reference
+                   repeat={true}
+                   resizeMode={'cover'}
+                   autoplay={false}
+                   onBuffer={() => {
+                     // ready to play
 
-                         this.setState({
-                           playerList: [...this.state.playerList]
-                         })
-                       }}
-                       style={DouYinStyle.videoBoxTarget}/>
+
+                     Animated.timing(                            // 随时间变化而执行的动画类型
+                       this.state.playerList[index].fadeAnim,                      // 动画中的变量值
+                       {
+                         toValue: 0,                             // 透明度最终变为1，即完全不透明
+                       }
+                     ).start();
+
+                     setTimeout(()=>{
+                       this.state.playerList[index].canPlay = true
+                       this.setState({
+                         playerList: [...this.state.playerList]
+                       })
+                     }, 1000)
+
+                   }}
+                   style={DouYinStyle.videoBoxTarget}/>
               ) : (
                 <View></View>
               )
@@ -214,13 +225,18 @@ export default class App extends Component<Props> {
             {
               this.state.playerList[index].canPlay ? (
                 <View>
-                  <Text style={{color: '#E00'}}></Text>
                 </View>
               ) : (
-                <Image
-                  source={{uri: item.video.cover.url_list[0]}}
-                  style={DouYinStyle.videoBoxCover}
-                />
+                <Animated.View                            // 可动画化的视图组件
+                  style={[DouYinStyle.videoBoxCover, {
+                    opacity: this.state.playerList[index].fadeAnim,          // 将透明度指定为动画变量值
+                  }]}
+                >
+                  <Image
+                    source={{uri: item.video.cover.url_list[0]}}
+                    style={DouYinStyle.videoBoxCover}
+                  />
+                </Animated.View>
               )
             }
           </View>
@@ -263,7 +279,7 @@ export default class App extends Component<Props> {
           height={ $Tool.getRawHeight() }
           horizontal={false}
           loop={false}
-          onDidChange={(item, index)=>{
+          onWillChange={(item, index)=>{
             this.scrollChange(item, index)
           }}
         />
