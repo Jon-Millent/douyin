@@ -4098,6 +4098,10 @@ react-native-extra-dimensions-android@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/react-native-extra-dimensions-android/-/react-native-extra-dimensions-android-1.0.1.tgz#ef0fe94b61ab4ad9da0a01b65255063eeb36664e"
 
+react-native-ezswiper@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/react-native-ezswiper/-/react-native-ezswiper-1.2.3.tgz#a255ad8dfe6ae01e071aa4ec9b367ac3d769186e"
+
 react-native-gesture-handler@^1.0.15, react-native-gesture-handler@~1.0.14:
   version "1.0.15"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.0.15.tgz#7e0d0a457820a3c9325a3d492daaed14400508a6"
