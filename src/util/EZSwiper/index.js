@@ -8,7 +8,7 @@ import {
   InteractionManager,
 } from 'react-native'
 
-export default class EZSwiper extends Component<{}> {
+export default class Index extends Component<{}> {
   /**
    | -------------------------------------------------------
    | EZSwiper component life
@@ -224,6 +224,10 @@ export default class EZSwiper extends Component<{}> {
    | -------------------------------------------------------
    */
   onScroll(e) {
+
+
+    console.log('scroll !!!!!!!!!!')
+
     if (this.scrollView) {
       this.stopAutoPlay()
       let offset = e.nativeEvent.contentOffset[this.ezswiper.scrollToDirection];
@@ -245,7 +249,6 @@ export default class EZSwiper extends Component<{}> {
         this.scrollIndex = currentPageFloat
         this.autoPlay()
       }
-
 
 
       const willIndex = Math.round(currentPageFloat);
@@ -306,7 +309,7 @@ export default class EZSwiper extends Component<{}> {
           horizontal={this.ezswiper.horizontal}
           pagingEnabled
           ref={this.refScrollView}
-          onScroll={e => this.onScroll(e)}
+          onContentSizeChange={e => this.onScroll(e)}
           scrollEventThrottle={16}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

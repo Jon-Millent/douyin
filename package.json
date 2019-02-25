@@ -11,6 +11,7 @@
     "build:iconfont": "iconfonttojson ./src/static/font/iconfont/iconfont.css"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "16.6.3",
     "react-native": "0.58.5",
     "react-native-extra-dimensions-android": "^1.0.1",

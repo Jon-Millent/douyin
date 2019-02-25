@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 
-import EZSwiper from '../util/EZSwiper';
+import Index from '../util/EZSwiper/EZSwiper';
 
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
@@ -270,16 +270,16 @@ export default class App extends Component<Props> {
           </View>
         </View>
 
-        <EZSwiper style={DouYinStyle.wrap}
-          dataSource={this.state.feedList}
-          renderRow={(item, index)=>{
+        <Index style={DouYinStyle.wrap}
+               dataSource={this.state.feedList}
+               renderRow={(item, index)=>{
             return this.renderSwiper(item, index)
           }}
-          width={ deviceWidth }
-          height={ $Tool.getRawHeight() }
-          horizontal={false}
-          loop={false}
-          onWillChange={(item, index)=>{
+               width={ deviceWidth }
+               height={ $Tool.getRawHeight() }
+               horizontal={false}
+               loop={false}
+               onWillChange={(item, index)=>{
             this.scrollChange(item, index)
           }}
         />
