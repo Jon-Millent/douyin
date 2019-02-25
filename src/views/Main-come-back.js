@@ -45,18 +45,18 @@ export default class App extends Component<Props> {
         method: 'GET',
       }).then((response) => response.json())
         .then((responseJson) => {
-          resolve({
-            code: 200,
-            body: responseJson
-          })
+        resolve({
+          code: 200,
+          body: responseJson
         })
-        .catch((error) => {
-          resolve({
-            code: 500,
-            body: null,
-            err: error
-          })
-        });
+      })
+      .catch((error) => {
+        resolve({
+          code: 500,
+          body: null,
+          err: error
+        })
+      });
     })
   }
 
