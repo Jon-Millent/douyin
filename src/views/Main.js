@@ -8,8 +8,11 @@ import {
   Image,
 } from "react-native";
 
-import EZSwiper from '../util/EZSwiper/index';
 
+import {
+  ParallaxSwiper,
+  ParallaxSwiperPage
+} from "../util/react-native-parallax-swiper";
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
 import Video from 'react-native-video';
@@ -26,6 +29,9 @@ export default class App extends Component<Props> {
       feedUrl: 'https://gitee.com/millent/json/raw/master/douyin/like.json'
     }
 
+    this.localConfig = {
+      nowIndex: 0
+    }
 
     this.state = {
       feedList: [], // 请求获取到的播放列表
@@ -73,8 +79,7 @@ export default class App extends Component<Props> {
         val.index = index
         arr.push({
           videoObject: null,
-          canPlay: false,
-          fadeAnim: new Animated.Value(1)
+          canPlay: false
         })
 
       })
@@ -93,158 +98,24 @@ export default class App extends Component<Props> {
     this.initMainPage()
   }
 
-  scrollChange(item, index){
+  scrollChange(index){
 
-    console.log(index, '<-=--------------------<<<')
+    if(index !== this.localConfig.nowIndex) {
 
-    this.state.playerList.forEach(val=>{
-      val.canPlay = false
-      val.fadeAnim = new Animated.Value(1)
-    })
-    this.setState({
-      playerList: [...this.state.playerList],
-      swiperIndex: index
-    })
+      this.localConfig.nowIndex = index
 
-  }
-
-
-  renderSwiper(item, index){
-
-    return (
-      <View style={{width: deviceWidth, height: $Tool.getRawHeight(), key: {index}}}>
-        <View style={DouYinStyle.innerWrap}>
-          <View style={DouYinStyle.descriptionBox}>
-            <Text style={DouYinStyle.userName}>
-              @jon-millent
-            </Text>
-
-            <Text style={DouYinStyle.desText}>
-              {item.share_info.share_desc}
-            </Text>
-
-            <View style={DouYinStyle.musicForm}>
-
-              <Image
-                source={require('../static/icon/lmu.png')}
-                style={{
-                  width: getPx(21),
-                  height: getPx(24)
-                }}
-              />
-
-              <View style={DouYinStyle.musicGo}>
-                <Text style={DouYinStyle.musicGoText}>jon-millent的原声音</Text>
-              </View>
-            </View>
-          </View>
-          <View style={DouYinStyle.rightMenu}>
-            <View style={DouYinStyle.userFaceBox}>
-              <View style={DouYinStyle.userFaceBoxBtn}>
-                <Iconfont name="icon-jia" size={getPx(40)} color="#fff" style={DouYinStyle.userFaceBoxIcon}></Iconfont>
-              </View>
-            </View>
-
-            <View style={DouYinStyle.publicIconBox}>
-              <View style={DouYinStyle.publicIconBoxIcon}>
-                <Iconfont name="icon-bqxin" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
-              </View>
-              <View style={DouYinStyle.publicIconBoxText}>
-                <Text style={DouYinStyle.publicIconBoxTextTarget}>{item.statistics.digg_count}</Text>
-              </View>
-            </View>
-
-
-            <View style={DouYinStyle.publicIconBox}>
-              <View style={DouYinStyle.publicIconBoxIcon}>
-                <Iconfont name="icon-pinglun" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
-              </View>
-              <View style={DouYinStyle.publicIconBoxText}>
-                <Text style={DouYinStyle.publicIconBoxTextTarget}>9.6w</Text>
-              </View>
-            </View>
-
-            <View style={DouYinStyle.publicIconBox}>
-              <View style={DouYinStyle.publicIconBoxIcon}>
-                <Iconfont name="icon-tiaoguofenxiang" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
-              </View>
-              <View style={DouYinStyle.publicIconBoxText}>
-                <Text style={DouYinStyle.publicIconBoxTextTarget}>分享</Text>
-              </View>
-            </View>
-
-
-            <View style={DouYinStyle.player}>
-              <View style={DouYinStyle.playerCover}></View>
-            </View>
-          </View>
-          <View style={DouYinStyle.videoBox}>
-            {
-              this.state.swiperIndex === index ? (
-                <Video source={{uri: item.video.play_addr.url_list[0]}}   // Can be a URL or a local file.
-                   ref={(ref) => {
-                     // set ref object
-
-                     if(!this.state.playerList[index].videoObject) {
-                       this.state.playerList[index].videoObject = ref
-                       this.setState({
-                         playerList: [...this.state.playerList]
-                       })
-                     }
-
-
-                   }}                                      // Store reference
-                   repeat={true}
-                   resizeMode={'cover'}
-                   autoplay={false}
-                   onBuffer={() => {
-                     // ready to play
-
-
-                     Animated.timing(                            // 随时间变化而执行的动画类型
-                       this.state.playerList[index].fadeAnim,                      // 动画中的变量值
-                       {
-                         toValue: 0,                             // 透明度最终变为1，即完全不透明
-                       }
-                     ).start();
-
-                     setTimeout(()=>{
-                       this.state.playerList[index].canPlay = true
-                       this.setState({
-                         playerList: [...this.state.playerList]
-                       })
-                     }, 1000)
-
-                   }}
-                   style={DouYinStyle.videoBoxTarget}/>
-              ) : (
-                <View></View>
-              )
-
-            }
-            {
-              this.state.playerList[index].canPlay ? (
-                <View>
-                </View>
-              ) : (
-                <Animated.View                            // 可动画化的视图组件
-                  style={[DouYinStyle.videoBoxCover, {
-                    opacity: this.state.playerList[index].fadeAnim,          // 将透明度指定为动画变量值
-                  }]}
-                >
-                  <Image
-                    source={{uri: item.video.cover.url_list[0]}}
-                    style={DouYinStyle.videoBoxCover}
-                  />
-                </Animated.View>
-              )
-            }
-          </View>
-        </View>
-      </View>
-    )
+      this.state.playerList.forEach(val=>{
+        val.canPlay = false
+        val.fadeAnim = new Animated.Value(1)
+      })
+      this.setState({
+        playerList: [...this.state.playerList],
+        swiperIndex: index
+      })
+    }
 
   }
+
 
   render() {
     return (
@@ -270,19 +141,153 @@ export default class App extends Component<Props> {
           </View>
         </View>
 
-        <EZSwiper style={DouYinStyle.wrap}
-               dataSource={this.state.feedList}
-               renderRow={(item, index)=>{
-            return this.renderSwiper(item, index)
+
+        <ParallaxSwiper
+          speed={0.5}
+          animatedValue={this.myCustomAnimatedValue}
+          dividerWidth={8}
+          dividerColor="black"
+          backgroundColor="#000"
+          onMomentumScrollEnd={activePageIndex => {
+            this.scrollChange(activePageIndex)
           }}
-               width={ deviceWidth }
-               height={ $Tool.getRawHeight() }
-               horizontal={false}
-               loop={false}
-               onWillChange={(item, index)=>{
-            this.scrollChange(item, index)
-          }}
-        />
+          vertical={true}
+        >
+
+          {
+            this.state.feedList.map((item, index)=>{
+              return (
+                <ParallaxSwiperPage
+                  key={index}
+                  BackgroundComponent={
+                    <View style={[
+                      MainPage.backgroundBox,
+                      {
+                        backgroundColor: '#000'
+                      }
+                    ]}>
+                    </View>
+                  }
+                  ForegroundComponent={
+                    <View style={DouYinStyle.wrap}>
+                      <View style={DouYinStyle.descriptionBox}>
+                        <Text style={DouYinStyle.userName}>
+                          @jon-millent
+                        </Text>
+
+                        <Text style={DouYinStyle.desText}>
+                          {item.share_info.share_desc}
+                        </Text>
+
+                        <View style={DouYinStyle.musicForm}>
+
+                          <Image
+                            source={require('../static/icon/lmu.png')}
+                            style={{
+                              width: getPx(21),
+                              height: getPx(24)
+                            }}
+                          />
+
+                          <View style={DouYinStyle.musicGo}>
+                            <Text style={DouYinStyle.musicGoText}>jon-millent的原声音</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={DouYinStyle.rightMenu}>
+                        <View style={DouYinStyle.userFaceBox}>
+                          <View style={DouYinStyle.userFaceBoxBtn}>
+                            <Iconfont name="icon-jia" size={getPx(40)} color="#fff" style={DouYinStyle.userFaceBoxIcon}></Iconfont>
+                          </View>
+                        </View>
+
+                        <View style={DouYinStyle.publicIconBox}>
+                          <View style={DouYinStyle.publicIconBoxIcon}>
+                            <Iconfont name="icon-bqxin" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
+                          </View>
+                          <View style={DouYinStyle.publicIconBoxText}>
+                            <Text style={DouYinStyle.publicIconBoxTextTarget}>{item.statistics.digg_count}</Text>
+                          </View>
+                        </View>
+
+
+                        <View style={DouYinStyle.publicIconBox}>
+                          <View style={DouYinStyle.publicIconBoxIcon}>
+                            <Iconfont name="icon-pinglun" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
+                          </View>
+                          <View style={DouYinStyle.publicIconBoxText}>
+                            <Text style={DouYinStyle.publicIconBoxTextTarget}>9.6w</Text>
+                          </View>
+                        </View>
+
+                        <View style={DouYinStyle.publicIconBox}>
+                          <View style={DouYinStyle.publicIconBoxIcon}>
+                            <Iconfont name="icon-tiaoguofenxiang" size={getPx(68)} color="#fff" style={DouYinStyle.publicIconBoxIconTarget}></Iconfont>
+                          </View>
+                          <View style={DouYinStyle.publicIconBoxText}>
+                            <Text style={DouYinStyle.publicIconBoxTextTarget}>分享</Text>
+                          </View>
+                        </View>
+
+
+                        <View style={DouYinStyle.player}>
+                          <View style={DouYinStyle.playerCover}></View>
+                        </View>
+                      </View>
+
+                      <View style={DouYinStyle.videoBox}>
+                        {
+                          this.state.swiperIndex === index ? (
+                            <Video source={{uri: item.video.play_addr.url_list[0]}}   // Can be a URL or a local file.
+                               ref={(ref) => {
+                                 // set ref object
+
+                                 if(!this.state.playerList[index].videoObject) {
+                                   this.state.playerList[index].videoObject = ref
+                                   this.setState({
+                                     playerList: [...this.state.playerList]
+                                   })
+                                 }
+
+                               }}                                      // Store reference
+                               repeat={true}
+                               resizeMode={'cover'}
+                               pause={true}
+                               onLoad={() => {
+                                 // ready to play
+                                 this.state.playerList[index].canPlay = true
+                                 this.setState({
+                                   playerList: [...this.state.playerList]
+                                 })
+                               }}
+                               style={DouYinStyle.videoBoxTarget}/>
+                          ) : (
+                            <View></View>
+                          )
+
+                        }
+                        {
+                          this.state.playerList[index].canPlay ? (
+                            <View>
+                            </View>
+                          ) : (
+                            <Image
+                              source={{uri: item.video.cover.url_list[0]}}
+                              style={DouYinStyle.videoBoxCover}
+                            />
+                          )
+                        }
+                      </View>
+
+                    </View>
+                  }
+                />
+              )
+            })
+          }
+
+        </ParallaxSwiper>
+
 
       </View>
 

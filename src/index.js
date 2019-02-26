@@ -63,7 +63,7 @@ const tabOptions = {
 
 // 创建底部tab
 const TabbedNavigation = createBottomTabNavigator(tabOptions, {
-  initialRouteName: 'Friend',
+  initialRouteName: 'Main',
   animationEnabled: false,
   swipeEnabled: false,
   lazyLoad: true,
