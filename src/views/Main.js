@@ -13,6 +13,7 @@ import {
   ParallaxSwiper,
   ParallaxSwiperPage
 } from "../util/react-native-parallax-swiper";
+import SplashScreen from 'react-native-splash-screen'
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
 import Video from 'react-native-video';
@@ -95,6 +96,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount(){
+    SplashScreen.hide(); // 隐藏开机图
     this.initMainPage()
   }
 
