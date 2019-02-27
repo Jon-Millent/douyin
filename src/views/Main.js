@@ -18,6 +18,7 @@ import ExtraDimensions from 'react-native-extra-dimensions-android';
 import {getPx, deviceWidth, borderWidth, deviceHeight} from "../util/Screen";
 import Video from 'react-native-video';
 import { Iconfont } from "../static/font/iconfont";
+import { NavigationEvents } from 'react-navigation';
 
 
 export default class App extends Component<Props> {
@@ -126,6 +127,13 @@ export default class App extends Component<Props> {
 
       <View style={[MainPage.wrap]}>
         <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0)" />
+
+        <NavigationEvents
+          onWillFocus={payload => console.log('will focus',payload)}
+          onDidFocus={payload => console.log('did focus',payload)}
+          onWillBlur={payload => console.log('will blur',payload)}
+          onDidBlur={payload => console.log('did blur',payload)}
+        />
 
         <View style={MainPage.header}>
           <View style={MainPage.headerLeft}>
