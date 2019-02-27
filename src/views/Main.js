@@ -39,9 +39,6 @@ export default class App extends Component<Props> {
       swiperIndex: 0,
       playerList: [] // 播放器存储列表
     }
-
-
-
   }
 
 
@@ -75,6 +72,11 @@ export default class App extends Component<Props> {
 
       let arr = []
 
+      // 由于返回数据都是固定的，这里随机一下视频顺序
+      aweme_list.sort(function() {
+        return .5 - Math.random();
+      });
+
       aweme_list.forEach((val, index)=>{
 
         val.index = index
@@ -85,13 +87,13 @@ export default class App extends Component<Props> {
 
       })
 
+
+
       this.setState({
         playerList: arr,
         feedList: aweme_list
       })
 
-
-      console.log(this.state.feedList.length, 'this.state.feedList.length')
     }
   }
 
@@ -127,7 +129,7 @@ export default class App extends Component<Props> {
 
         <View style={MainPage.header}>
           <View style={MainPage.headerLeft}>
-            <Iconfont name="icon-camera_icon" size={getPx(40)} color="#bcbbbb"></Iconfont>
+            <Iconfont name="icon-camera_icon" size={getPx(40)} color="#C0C0C0"></Iconfont>
             <Text style={[MainPage.headerLeftText, MainPage.f1]}>随拍</Text>
           </View>
           <View style={MainPage.headerCenter}>
@@ -137,7 +139,7 @@ export default class App extends Component<Props> {
           </View>
           <View style={MainPage.headerLeft}>
             <View style={MainPage.searchWrap}>
-              <Iconfont name="icon-sousuo-copy" size={getPx(40)} color="#bcbbbb"></Iconfont>
+              <Iconfont name="icon-sousuo-copy" size={getPx(40)} color="#C0C0C0"></Iconfont>
               <View style={MainPage.searchTip}></View>
             </View>
           </View>
@@ -355,7 +357,7 @@ const MainPage = StyleSheet.create({
 
   },
   f1: {
-    color: '#bcbbbb',
+    color: '#C0C0C0',
     fontSize: getPx(30),
     fontWeight: 'bold'
   },
@@ -365,7 +367,7 @@ const MainPage = StyleSheet.create({
     fontWeight: 'bold'
   },
   f3: {
-    color: '#bcbbbb',
+    color: '#C0C0C0',
     fontSize: getPx(26),
     paddingHorizontal: getPx(28),
     fontWeight: 'bold'

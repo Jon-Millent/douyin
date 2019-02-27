@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 
 import {
   View,
-  Image
+  Image,
+  Alert
 } from 'react-native'
 
 import MainScreen from './views/Main';
@@ -20,13 +21,23 @@ const tabOptions = {
   Main: {
     screen: MainScreen,
     navigationOptions: {
-      tabBarLabel: '首页'
+      tabBarLabel: '首页',
+      tabBarOnPress(scene, jumpToIndex){
+        // 打开这个tab播放暂停的视频
+        console.log('onPress route:', scene);
+        console.log('onPress index:', jumpToIndex);
+      }
     }
   },
   Friend: {
     screen: FriendScreen,
     navigationOptions: {
-      tabBarLabel: '好友'
+      tabBarLabel: '好友',
+      tabBarOnPress(scene, jumpToIndex){
+        // 打开这个tab暂停正在播放的视频
+        console.log('onPress route:', scene);
+        console.log('onPress index:', jumpToIndex);
+      }
     }
   },
   Append: {
@@ -44,19 +55,31 @@ const tabOptions = {
             }}
           />
         )
+      },
+      tabBarOnPress(){
+        Alert.alert(
+          '提示',
+          '体验版不提供发布视频功能'
+        )
       }
     }
   },
   Message: {
     screen: FriendScreen,
     navigationOptions: {
-      tabBarLabel: '消息'
+      tabBarLabel: '消息',
+      tabBarOnPress(scene, jumpToIndex){
+        // 打开这个tab暂停正在播放的视频
+      }
     }
   },
   My: {
     screen: FriendScreen,
     navigationOptions: {
-      tabBarLabel: '我'
+      tabBarLabel: '我',
+      tabBarOnPress(scene, jumpToIndex){
+        // 打开这个tab暂停正在播放的视频
+      }
     }
   }
 };
