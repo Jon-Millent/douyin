@@ -29,5 +29,5 @@ react native douyin app.
 
 
 <h5 align="center">
-   ![](https://user-gold-cdn.xitu.io/2019/3/1/16937c89885a4346?w=231&h=480&f=gif&s=2614274)
+   <img src="https://user-gold-cdn.xitu.io/2019/3/1/16937c89885a4346?w=231&h=480&f=gif&s=2614274">
 </h4>
