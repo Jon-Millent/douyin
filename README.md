@@ -27,8 +27,29 @@ douyin
 react native douyin app.
 </h4>
 
-
 <h5 align="center">
-  <img src="https://user-gold-cdn.xitu.io/2019/3/1/16937c89885a4346?w=231&h=480&f=gif&s=2614274"/>
+android扫码下载
+</h4>
+<h5 align="center">
   <img src="https://user-gold-cdn.xitu.io/2019/3/1/16937cfaf4503eb4?w=256&h=256&f=png&s=6826"/>
 </h4>
+
+
+## 运行
+```
+git clone https://github.com/Jon-Millent/douyin
+cd douyin
+yarn
+```
+
+### android
+dev
+```
+npm run dev:android
+```
+
+build
+```
+npm run build:android
+```
+<img src="https://user-gold-cdn.xitu.io/2019/3/1/16937c89885a4346?w=231&h=480&f=gif&s=2614274"/>
