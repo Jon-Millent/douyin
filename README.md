@@ -31,7 +31,7 @@ react native douyin app.
 android扫码下载
 </h4>
 <h5 align="center">
-  <img src="https://user-gold-cdn.xitu.io/2019/3/1/16937e2abe58cb12?w=256&h=256&f=png&s=6692"/>
+  <img src="https://i.loli.net/2019/03/01/5c78cdb9d8cba.png"/>
 </h4>
 
 
