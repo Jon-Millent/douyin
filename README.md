@@ -43,13 +43,25 @@ yarn
 ```
 
 ### android
-dev
+dev app
 ```
 npm run dev:android
 ```
 
-build
+build app
 ```
 npm run build:android
 ```
+
+build iconfont
+```
+npm run build:iconfont
+```
+
+## ios
+无mac机器，未测试。
+
+
+## demo
+
 <img src="https://user-gold-cdn.xitu.io/2019/3/1/16937c89885a4346?w=231&h=480&f=gif&s=2614274"/>
