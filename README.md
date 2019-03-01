@@ -28,7 +28,7 @@ react native douyin app.
 </h4>
 
 <h5 align="center">
-android扫码下载
+android扫码下载(勿用微信扫，微信限制下载)
 </h4>
 <h5 align="center">
   <img src="https://i.loli.net/2019/03/01/5c78cdb9d8cba.png"/>
