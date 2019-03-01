@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="logo" src="https://i.loli.net/2018/09/05/5b8fc3cfd421f.png" width="100" max-width="100%">
+  <img alt="logo" src="https://user-gold-cdn.xitu.io/2019/3/1/16937cbdfb18d03a?w=100&h=100&f=png&s=10034" width="100" max-width="100%">
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@
 </p>
 
 <h1 align="center">
-mi-shop
+douyin
 </h1>
 
 <h4 align="center">
